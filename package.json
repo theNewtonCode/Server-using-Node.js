@@ -1,0 +1,12 @@
+{
+  "name": "server-nodejs",
+  "version": "1.0.0",
+  "description": "http server using nodejs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Abhyuday",
+  "license": "ISC"
+}
