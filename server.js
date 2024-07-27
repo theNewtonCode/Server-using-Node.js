@@ -1,9 +1,11 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const { timeStamp } = require('console');
 
 const server = http.createServer((req, res) => {
 
+//endpoint for serving homepage on get request
 if(req.method === 'GET' && req.url === '/'){
     const indexFile = path.join(__dirname, 'Frontend/static/index.html');
     fs.readFile(indexFile, (err, data)=>{
@@ -16,6 +18,26 @@ if(req.method === 'GET' && req.url === '/'){
         res.end(data);
     })
 }
+//endpoint for api request
+else if(req.method==='GET' && req.url === '/api/data'){
+    const apidata = path.join(__dirname, 'Frontend/static/api data/text.txt');
+    fs.readFile(apidata, 'utf8', (err, data) => {
+        if (err) {
+            console.log(err);
+            res.writeHead(500, {'Content-Type':'text/plain'})
+            res.end('Server Error')
+            return;
+        }
+        send_data = {
+            message: data,
+            timestamp: new Date() 
+        };
+        res.writeHead(200, {'Content-Type':'application/json'})
+        res.end(JSON.stringify(send_data));
+    })
+}
+
+//endpoint for bad request
 else {
     res.writeHead(404, 
         {'Content-Type':'text/plain'}
